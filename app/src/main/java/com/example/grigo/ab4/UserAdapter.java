@@ -3,6 +3,7 @@ package com.example.grigo.ab4;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.Image;
 import android.support.annotation.LayoutRes;
@@ -23,6 +24,8 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
+import java.util.Currency;
 import java.util.List;
 
 /**
@@ -45,7 +48,7 @@ public class UserAdapter extends ArrayAdapter {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         ViewHolder holder = null;
 

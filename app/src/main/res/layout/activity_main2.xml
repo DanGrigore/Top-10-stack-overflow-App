@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.grigo.ab4.Main2Activity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/biggerProfilePicture"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            app:srcCompat="@color/colorAccent" />
+
+        <RelativeLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/biggerProfilePicture"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/namePic"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_margin="5dp"
+                app:srcCompat="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/nameTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/namePic"
+                android:layout_toRightOf="@+id/namePic"
+                android:text="TextView" />
+
+            <ImageView
+                android:id="@+id/locationPic"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_below="@+id/namePic"
+                android:layout_margin="5dp"
+                app:srcCompat="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/locationTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nameTag"
+                android:layout_marginTop="1dp"
+                android:layout_toRightOf="@+id/locationPic"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/badgeNumbers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/locationPic"
+                android:layout_alignStart="@+id/locationPic"
+                android:layout_below="@+id/locationPic"
+                android:text="Badge numbers:" />
+
+            <ImageView
+                android:id="@+id/bronzeMedals"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignLeft="@+id/locationTag"
+                android:layout_alignStart="@+id/locationTag"
+                android:layout_below="@+id/badgeNumbers"
+                android:layout_marginTop="7dp"
+                app:srcCompat="@android:color/holo_blue_bright" />
+
+            <ImageView
+                android:id="@+id/silverMedals"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignLeft="@+id/bronzeMedals"
+                android:layout_alignStart="@+id/bronzeMedals"
+                android:layout_below="@+id/bronzeMedals"
+                android:layout_marginTop="7dp"
+                app:srcCompat="@android:color/holo_blue_bright" />
+
+            <ImageView
+                android:id="@+id/goldMedals"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignLeft="@+id/silverMedals"
+                android:layout_alignStart="@+id/silverMedals"
+                android:layout_below="@+id/silverMedals"
+                android:layout_marginTop="7dp"
+                app:srcCompat="@android:color/holo_blue_bright" />
+
+            <TextView
+                android:id="@+id/bronzeMedalsTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/badgeNumbers"
+                android:layout_toEndOf="@+id/bronzeMedals"
+                android:layout_toRightOf="@+id/bronzeMedals"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="2dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/silverMedalsTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/bronzeMedalsTag"
+                android:layout_alignStart="@+id/bronzeMedalsTag"
+                android:layout_below="@+id/bronzeMedals"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/goldMedalsTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/silverMedalsTag"
+                android:layout_alignStart="@+id/silverMedalsTag"
+                android:layout_below="@+id/silverMedals"
+                android:text="TextView" />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

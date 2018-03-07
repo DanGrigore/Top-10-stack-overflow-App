@@ -25,6 +25,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private ListView listView;
@@ -55,8 +56,14 @@ public class MainActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listView);
 
-//        UserAdapter userAdapter = new UserAdapter(this, names, imageId);
-//        lst.setAdapter(userAdapter);
+    }
+
+    public class NoConnectivityException extends IOException {
+
+        @Override
+        public String getMessage() {
+            return "No network available, please check your WiFi or Data connection";
+        }
     }
 
     public class GetPersons extends AsyncTask<String, String, List<UserModel>> {
