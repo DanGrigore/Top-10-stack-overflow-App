@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -15,7 +14,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,8 +21,9 @@ public class MainActivity extends AppCompatActivity {
 
     ListView lst;
     String[] names = new String[10];
-    Integer[] imageId = {R.drawable.poza2016, R.drawable.poza2016, R.drawable.poza2016, R.drawable.poza2016, R.drawable.poza2016, R.drawable.poza2016, R.drawable.poza2016, R.drawable.poza2016,
-            R.drawable.poza2016, R.drawable.poza2016};
+    Integer[] imageId = {R.drawable.poza2016, R.drawable.poza2016, R.drawable.poza2016,
+            R.drawable.poza2016, R.drawable.poza2016, R.drawable.poza2016, R.drawable.poza2016,
+            R.drawable.poza2016, R.drawable.poza2016, R.drawable.poza2016};
     String[] imageSources = new String[10];
 
     private String TAG = MainActivity.class.getSimpleName();
@@ -43,8 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
         personList = new ArrayList<>();
         lst = (ListView) findViewById(R.id.listview);
-        CustomListView customListView = new CustomListView(this, names, imageId);
-        lst.setAdapter(customListView);
+
+        UserAdapter userAdapter = new UserAdapter(this, names, imageId);
+        lst.setAdapter(userAdapter);
     }
 
     private class GetPersons extends AsyncTask<Void, Void, Void> {
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonOBj = new JSONObject(jsonStr);
 
-                    JSONArray persons = jsonOBj.getJSONArray("peresons");
+                    JSONArray persons = jsonOBj.getJSONArray("persons");
 
                     for (int i = 0; i < persons.length(); i++) {
                         JSONObject c = persons.getJSONObject(i);

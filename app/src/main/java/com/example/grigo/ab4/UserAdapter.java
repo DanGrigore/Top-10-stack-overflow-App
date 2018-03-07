@@ -16,13 +16,13 @@ import android.widget.TextView;
  * Created by grigo on 03-Mar-18.
  */
 
-public class CustomListView extends ArrayAdapter<String> {
+public class UserAdapter extends ArrayAdapter<String> {
 
     private String[] names;
     private Integer[] imageId;
     private Activity context;
 
-    public CustomListView(Activity context, String[] names, Integer[] imageId) {
+    public UserAdapter(Activity context, String[] names, Integer[] imageId) {
         super(context, R.layout.listview_layout, names);
         this.context = context;
         this.names = names;
