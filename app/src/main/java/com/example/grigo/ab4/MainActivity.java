@@ -4,128 +4,133 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
+
+import com.example.grigo.ab4.models.UserModel;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    ListView lst;
-    String[] names = new String[10];
-    Integer[] imageId = {R.drawable.poza2016, R.drawable.poza2016, R.drawable.poza2016,
-            R.drawable.poza2016, R.drawable.poza2016, R.drawable.poza2016, R.drawable.poza2016,
-            R.drawable.poza2016, R.drawable.poza2016, R.drawable.poza2016};
-    String[] imageSources = new String[10];
-
-    private String TAG = MainActivity.class.getSimpleName();
-
-    private ProgressDialog pDialog;
-
-    // URL to get contacts JSON
-    private static String url = "https://api.stackexchange.com/2.2/users?pagesize=10&order=desc&sort=reputation&site=stackoverflow";
-
-    ArrayList<HashMap<String, String>> personList;
+    private ListView listView;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        personList = new ArrayList<>();
-        lst = (ListView) findViewById(R.id.listview);
+        dialog = new ProgressDialog(this);
+        dialog.setIndeterminate(true);
+        dialog.setCancelable(false);
+        dialog.setMessage("Loading...");
+        // Create default options which will be used for every
+        //  displayImage(...) call if no options will be passed to this method
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
 
-        UserAdapter userAdapter = new UserAdapter(this, names, imageId);
-        lst.setAdapter(userAdapter);
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                .defaultDisplayImageOptions(defaultOptions)
+                .build();
+        ImageLoader.getInstance().init(config); // Do it on Application start
+
+        new GetPersons().execute("https://api.stackexchange.com/2.2/users?pagesize=10&order=desc&sort=reputation&site=stackoverflow");
+
+        listView = (ListView) findViewById(R.id.listView);
+
+//        UserAdapter userAdapter = new UserAdapter(this, names, imageId);
+//        lst.setAdapter(userAdapter);
     }
 
-    private class GetPersons extends AsyncTask<Void, Void, Void> {
+    public class GetPersons extends AsyncTask<String, String, List<UserModel>> {
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(MainActivity.this);
-            pDialog.setMessage("Please wait...");
-            pDialog.setCancelable(false);
-            pDialog.show();
+            dialog.show();
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
-            HttpHandler sh = new HttpHandler();
-            String jsonStr = sh.makeServiceCall(url);
+        protected List<UserModel> doInBackground(String... params) {
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
 
-            Log.e(TAG, "Response from url: " + jsonStr);
+            try {
+                URL url = new URL(params[0]);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
 
-            if (jsonStr != null) {
-                try {
-                    JSONObject jsonOBj = new JSONObject(jsonStr);
+                InputStream stream = connection.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuffer buffer = new StringBuffer();
 
-                    JSONArray persons = jsonOBj.getJSONArray("persons");
-
-                    for (int i = 0; i < persons.length(); i++) {
-                        JSONObject c = persons.getJSONObject(i);
-                        String name = c.getString("display_name");
-                        String imageSource = c.getString("profile_image");
-
-                        names[i] = name;
-                        imageSources[i] = imageSource;
-                        HashMap<String, String> person = new HashMap<>();
-                        person.put("display_name", name);
-                        person.put("profile_image", imageSource);
-
-                        personList.add(person);
-                    }
-                } catch (final JSONException e) {
-                    Log.e(TAG, "Json parsing error: " + e.getMessage());
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(),
-                                    "Json parsing error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG)
-                                    .show();
-                        }
-                    });
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
                 }
-            } else {
-                Log.e(TAG, "Couldn't get json from server.");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(),
-                                "Couldn't get json from server. Check LogCat for possible errors!",
-                                Toast.LENGTH_LONG)
-                                .show();
-                    }
-                });
-            }
 
+                String finalJson = buffer.toString();
+                JSONObject parentObject = new JSONObject(finalJson);
+                JSONArray parentArray = parentObject.getJSONArray("items");
+
+                List<UserModel> userModelList = new ArrayList<>();
+                //take the info from JSON
+                for (int i = 0; i < parentArray.length(); i++) {
+                    JSONObject each = parentArray.getJSONObject(i);
+                    UserModel userModel = new UserModel();
+
+                    JSONObject badgeCounts = each.getJSONObject("badge_counts");
+                    UserModel.Rating rating = new UserModel.Rating();
+                    rating.setBronze(badgeCounts.getInt("bronze"));
+                    rating.setSilver(badgeCounts.getInt("silver"));
+                    rating.setGold(badgeCounts.getInt("gold"));
+
+                    userModel.setBadge_counts(rating);
+                    userModel.setAccount_id(each.getInt("account_id"));
+                    userModel.setDisplay_name(each.getString("display_name"));
+                    userModel.setProfile_image(each.getString("profile_image"));
+
+                    userModelList.add(userModel);
+                }
+                return userModelList;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null)
+                    connection.disconnect();
+            }
             return null;
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(List<UserModel> result) {
             super.onPostExecute(result);
-
-            if (pDialog.isShowing())
-                pDialog.dismiss();
-
-            ListAdapter adapter = new SimpleAdapter(
-                    MainActivity.this, personList,
-                    R.layout.listview_layout, new String[]{"name"},
-                    new int[]{R.id.name});
-            lst.setAdapter(adapter);
+            dialog.dismiss();
+            UserAdapter adapter = new UserAdapter(getApplicationContext(), R.layout.listview_layout, result);
+            listView.setAdapter(adapter);
+            //setting the views here
         }
-
     }
-
 
 }

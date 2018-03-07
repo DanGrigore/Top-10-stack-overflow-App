@@ -7,7 +7,7 @@
     tools:context="com.example.grigo.ab4.MainActivity">
 
     <ListView
-        android:id="@+id/listview"
+        android:id="@+id/listView"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         />

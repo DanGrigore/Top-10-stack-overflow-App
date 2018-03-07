@@ -6,7 +6,7 @@ package com.example.grigo.ab4.models;
 
 public class UserModel {
 
-    private rating badge_counts;
+    private Rating badge_counts;
     private int account_id;
     private boolean is_employee;
     private int last_modified_date;
@@ -28,11 +28,11 @@ public class UserModel {
     private String profile_image;
     private String display_name;
 
-    public rating getBadge_counts() {
+    public Rating getBadge_counts() {
         return badge_counts;
     }
 
-    public void setBadge_counts(rating badge_counts) {
+    public void setBadge_counts(Rating badge_counts) {
         this.badge_counts = badge_counts;
     }
 
@@ -196,7 +196,7 @@ public class UserModel {
         this.display_name = display_name;
     }
 
-    public static class rating{
+    public static class Rating {
         private int bronze;
         private int silver;
         private int gold;
