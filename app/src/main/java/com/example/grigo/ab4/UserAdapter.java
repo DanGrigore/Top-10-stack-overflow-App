@@ -88,6 +88,25 @@ public class UserAdapter extends ArrayAdapter {
                 });
         holder.name.setText(userModelList.get(position).getDisplay_name());
 
+        convertView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext().getApplicationContext(),Main2Activity.class);
+                intent.putExtra("name",userModelList.get(position).getDisplay_name());
+                intent.putExtra("profilePicutre",userModelList.get(position).getProfile_image());
+                intent.putExtra("location",userModelList.get(position).getLocation());
+                intent.putExtra("profilePic",userModelList.get(position).getProfile_image());
+                int bronze = userModelList.get(position).getBadge_counts().getBronze();
+                int silver = userModelList.get(position).getBadge_counts().getSilver();
+                int gold = userModelList.get(position).getBadge_counts().getGold();
+                intent.putExtra("bronze", bronze);
+                intent.putExtra("silver", silver);
+                intent.putExtra("gold", gold);
+
+                getContext().startActivity(intent);
+            }
+        });
+
         return convertView;
     }
 

@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONArray parentArray = parentObject.getJSONArray("items");
 
                 List<UserModel> userModelList = new ArrayList<>();
+                List<UserModel.Rating> ratingList = new ArrayList<>();
                 //take the info from JSON
                 for (int i = 0; i < parentArray.length(); i++) {
                     JSONObject each = parentArray.getJSONObject(i);
@@ -108,9 +109,11 @@ public class MainActivity extends AppCompatActivity {
                     rating.setBronze(badgeCounts.getInt("bronze"));
                     rating.setSilver(badgeCounts.getInt("silver"));
                     rating.setGold(badgeCounts.getInt("gold"));
+                    userModel.setBadge_counts(rating);
 
                     userModel.setBadge_counts(rating);
                     userModel.setAccount_id(each.getInt("account_id"));
+                    userModel.setLocation(each.getString("location"));
                     userModel.setDisplay_name(each.getString("display_name"));
                     userModel.setProfile_image(each.getString("profile_image"));
 
