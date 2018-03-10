@@ -1,6 +1,7 @@
 package com.example.grigo.ab4;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,15 +27,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class Top10page extends AppCompatActivity {
 
     private ListView listView;
     private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.top10_layout);
 
         dialog = new ProgressDialog(this);
         dialog.setIndeterminate(true);
@@ -58,13 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public class NoConnectivityException extends IOException {
-
-        @Override
-        public String getMessage() {
-            return "No network available, please check your WiFi or Data connection";
-        }
-    }
 
     public class GetPersons extends AsyncTask<String, String, List<UserModel>> {
 

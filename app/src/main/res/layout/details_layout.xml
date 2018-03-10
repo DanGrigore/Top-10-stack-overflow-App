@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.grigo.ab4.Main2Activity">
+    tools:context="com.example.grigo.ab4.DetailsPage">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,8 +25,8 @@
 
             <ImageView
                 android:id="@+id/biggerProfilePictureImg"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 app:srcCompat="@color/colorAccent" />
@@ -34,28 +34,134 @@
             <ProgressBar
                 android:id="@+id/progressBar2"
                 style="?android:attr/progressBarStyle"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
         </FrameLayout>
 
         <RelativeLayout
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/biggerProfilePicture"
             android:layout_centerHorizontal="true"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/namePic"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_margin="5dp"
-                app:srcCompat="@color/colorPrimary" />
+            <LinearLayout
+                android:id="@+id/nameLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal">
 
-            <TextView
+                <ImageView
+                    android:id="@+id/namePic"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0"
+                    android:src="@drawable/person_image" />
+
+                <TextView
+                    android:id="@+id/nameTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingTop="13dp"
+                    android:text="TextView"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/locationLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/nameLinear"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/locationPic"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0"
+                    android:src="@drawable/location_image" />
+
+                <TextView
+                    android:id="@+id/locationTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="13dp"
+                    android:text="TextView"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/badgeSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/locationLinear"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/bronzeMedals"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/bronze_medal" />
+
+                <TextView
+                    android:id="@+id/bronzeMedalsTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:paddingTop="8dp"
+                    android:layout_weight="1"
+                    android:text="TextView" />
+
+                <ImageView
+                    android:id="@+id/silverMedals"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/silver_medal" />
+
+                <TextView
+                    android:id="@+id/silverMedalsTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="TextView" />
+
+                <ImageView
+                    android:id="@+id/goldMedals"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/gold_medal" />
+
+                <TextView
+                    android:id="@+id/goldMedalsTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="TextView" />
+            </LinearLayout>
+
+            <![CDATA[
+
+            TextView
                 android:id="@+id/nameTag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,7 +170,7 @@
                 android:layout_toRightOf="@+id/namePic"
                 android:text="TextView" />
 
-            <ImageView
+            ImageView
                 android:id="@+id/locationPic"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
@@ -72,7 +178,7 @@
                 android:layout_margin="5dp"
                 app:srcCompat="@color/colorPrimary" />
 
-            <TextView
+            TextView
                 android:id="@+id/locationTag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -81,7 +187,7 @@
                 android:layout_toRightOf="@+id/locationPic"
                 android:text="TextView" />
 
-            <TextView
+            TextView
                 android:id="@+id/badgeNumbers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -90,7 +196,7 @@
                 android:layout_below="@+id/locationPic"
                 android:text="Badge numbers:" />
 
-            <ImageView
+            ImageView
                 android:id="@+id/bronzeMedals"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
@@ -100,7 +206,7 @@
                 android:layout_marginTop="7dp"
                 app:srcCompat="@android:color/holo_blue_bright" />
 
-            <ImageView
+            ImageView
                 android:id="@+id/silverMedals"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
@@ -110,28 +216,28 @@
                 android:layout_marginTop="7dp"
                 app:srcCompat="@android:color/holo_blue_bright" />
 
-            <ImageView
+            ImageView
                 android:id="@+id/goldMedals"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:layout_alignLeft="@+id/silverMedals"
-                android:layout_alignStart="@+id/silverMedals"
                 android:layout_below="@+id/silverMedals"
                 android:layout_marginTop="7dp"
+                android:layout_toEndOf="@+id/silverMedals"
+                android:layout_toRightOf="@+id/silverMedals"
                 app:srcCompat="@android:color/holo_blue_bright" />
 
-            <TextView
+            TextView
                 android:id="@+id/bronzeMedalsTag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/badgeNumbers"
-                android:layout_toEndOf="@+id/bronzeMedals"
-                android:layout_toRightOf="@+id/bronzeMedals"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="2dp"
+                android:layout_toEndOf="@+id/bronzeMedals"
+                android:layout_toRightOf="@+id/bronzeMedals"
                 android:text="TextView" />
 
-            <TextView
+            TextView
                 android:id="@+id/silverMedalsTag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -140,7 +246,7 @@
                 android:layout_below="@+id/bronzeMedals"
                 android:text="TextView" />
 
-            <TextView
+            TextView
                 android:id="@+id/goldMedalsTag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -150,6 +256,7 @@
                 android:text="TextView" />
 
 
+        ]]>
         </RelativeLayout>
 
     </RelativeLayout>

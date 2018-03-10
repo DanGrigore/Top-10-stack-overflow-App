@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Top 10 stack-overflow users</string>
+    <string name="title_activity_display_message"> Test</string>
 </resources>

@@ -2,7 +2,6 @@ package com.example.grigo.ab4;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,13 +13,13 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
-public class Main2Activity extends AppCompatActivity {
+public class DetailsPage extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.details_layout);
 
         ImageView biggerProfilePictureImg = findViewById(R.id.biggerProfilePictureImg);
         TextView nameTag = findViewById(R.id.nameTag);
