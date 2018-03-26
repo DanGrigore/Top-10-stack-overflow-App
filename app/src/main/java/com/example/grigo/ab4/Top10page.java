@@ -1,7 +1,6 @@
 package com.example.grigo.ab4;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,8 +41,7 @@ public class Top10page extends AppCompatActivity {
         dialog.setIndeterminate(true);
         dialog.setCancelable(false);
         dialog.setMessage("Loading...");
-        // Create default options which will be used for every
-        //  displayImage(...) call if no options will be passed to this method
+
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
@@ -52,7 +50,7 @@ public class Top10page extends AppCompatActivity {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
                 .defaultDisplayImageOptions(defaultOptions)
                 .build();
-        ImageLoader.getInstance().init(config); // Do it on Application start
+        ImageLoader.getInstance().init(config);
 
         new GetPersons().execute("https://api.stackexchange.com/2.2/users?pagesize=10&order=desc&sort=reputation&site=stackoverflow");
 
@@ -93,7 +91,7 @@ public class Top10page extends AppCompatActivity {
                 JSONArray parentArray = parentObject.getJSONArray("items");
 
                 List<UserModel> userModelList = new ArrayList<>();
-                List<UserModel.Rating> ratingList = new ArrayList<>();
+
                 //take the info from JSON
                 for (int i = 0; i < parentArray.length(); i++) {
                     JSONObject each = parentArray.getJSONObject(i);
@@ -134,7 +132,6 @@ public class Top10page extends AppCompatActivity {
             dialog.dismiss();
             UserAdapter adapter = new UserAdapter(getApplicationContext(), R.layout.listview_layout, result);
             listView.setAdapter(adapter);
-            //setting the views here
         }
     }
 
